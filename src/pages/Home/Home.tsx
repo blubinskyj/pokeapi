@@ -1,15 +1,9 @@
-import Search from "../../componemts/Search/Search"
-import Filter from "../../componemts/Filter/Filter"
+import PokemonList from "./components/PokemonList/PokemonList"
 import styles from "./Home.module.scss"
-
 const Home = () => {
   return (
-    <div>
-      <filter className={styles.filterContainer}>
-        <Search />
-        <Filter />
-      </filter>
-      home
+    <div className={styles.homeContainer}>
+      <PokemonList />
     </div>
   )
 }
