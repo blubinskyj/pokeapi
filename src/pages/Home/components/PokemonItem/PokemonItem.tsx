@@ -1,22 +1,22 @@
 import styles from "./PokemonItem.module.scss"
 import type { FC } from "react"
 import { Link } from "react-router-dom"
+import type { PokemonsItem } from "../@types"
 
-interface PokemonItemProps {
-  name: string
-}
-
-const PokemonItem: FC<PokemonItemProps> = ({ name }) => {
+const PokemonItem: FC<PokemonsItem> = ({ name, types, image }) => {
   return (
     <div className={styles.pokemonCard}>
       <Link to={`pokemon/${name}`}>
-        <h2>Pokemon ID</h2>
+        <img src={image} alt={name} className={styles.image} />
         <p>
-          <strong>Name:</strong> {name}
+          Name: <strong>{name}</strong>
         </p>
-        <p>
-          <strong>Type:</strong> Pokemon type
-        </p>
+        <div className={styles.pokemonTypeContainer}>
+          <p>Type:</p>
+          {types.map((item, index) => (
+            <p key={index}>{item.type.name}</p>
+          ))}
+        </div>
       </Link>
     </div>
   )
