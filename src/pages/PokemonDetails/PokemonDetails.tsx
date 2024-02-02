@@ -6,42 +6,37 @@ import styles from "./PokemonDetails.module.scss"
 import Loading from "../../componemts/Loading/Loading"
 
 const PokemonDetails = () => {
-  const { name } = useParams()
+  const { id: pokemonId } = useParams()
   const [pokemon, setPokemon] = useState<PokemonsItem>()
-  const [isLoading, setIsLoading] = useState(false)
-
-  const fetchPokemons = async (pokemonName: string) => {
-    setIsLoading(true)
-    try {
-      const response = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
-      )
-      setPokemon({
-        name: response.data.name,
-        types: response.data.types,
-        image: response.data.sprites.front_default,
-        moves: response.data.moves,
-      })
-      setIsLoading(false)
-    } catch (error: any) {
-      console.error("Error fetching data:", error.message)
-    }
-  }
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    if (name) {
-      fetchPokemons(name)
+    const fetchPokemon = async () => {
+      await axios
+        .get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
+        .then(response => {
+          setPokemon({
+            name: response.data.name,
+            types: response.data.types,
+            image: response.data.sprites.front_default,
+            moves: response.data.moves,
+          })
+        })
+      setIsLoading(false)
     }
-  }, [])
+    fetchPokemon()
+  }, [pokemonId])
 
-  if (isLoading) {
-    return <Loading />
-  }
-
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <div className={styles.itemContainer}>
       <h1>{pokemon?.name}</h1>
-      <img src={pokemon?.image} alt={name} className={styles.itemImage} />
+      <img
+        src={pokemon?.image}
+        alt={pokemon?.name}
+        className={styles.itemImage}
+      />
       <div className={styles.descriptionContainer}>
         <div className={styles.itemSection}>
           <h2>Вміння:</h2>
