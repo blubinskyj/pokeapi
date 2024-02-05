@@ -1,68 +1,24 @@
-import styles from "./App.module.scss"
-import { Counter } from "./features/counter/Counter"
-import { Quotes } from "./features/quotes/Quotes"
-import logo from "./logo.svg"
+import { useAppDispatch, useAppSelector } from "./app/hooks"
+import { useEffect } from "react"
+import { getInitialPokemonData } from "./app/reducers/getInitialPokemonData"
+import { getPokemonData } from "./app/reducers/getPokemonData"
 
 const App = () => {
-  return (
-    <div className={styles.App}>
-      <header className={styles.AppHeader}>
-        <img src={logo} className={styles.AppLogo} alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <Quotes />
-        <span>
-          <span>Learn </span>
-          <a
-            className={styles.AppLink}
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className={styles.AppLink}
-            href="https://redux.js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className={styles.AppLink}
-            href="https://redux-toolkit.js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          <span>, </span>
-          <a
-            className={styles.AppLink}
-            href="https://react-redux.js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-          ,<span> and </span>
-          <a
-            className={styles.AppLink}
-            href="https://reselect.js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Reselect
-          </a>
-        </span>
-      </header>
-    </div>
-  )
+  const dispatch = useAppDispatch()
+  const { allPokemon } = useAppSelector(state => state.pokemon)
+  useEffect(() => {
+    dispatch(getInitialPokemonData())
+  }, [dispatch])
+
+  useEffect(() => {
+    if (allPokemon) {
+      const clonedPokemon = [...allPokemon]
+      const pokemonList = clonedPokemon.slice(0, 20)
+      dispatch(getPokemonData(pokemonList))
+    }
+  }, [allPokemon, dispatch])
+
+  return <div>App</div>
 }
 
 export default App
