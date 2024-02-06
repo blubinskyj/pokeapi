@@ -1,6 +1,6 @@
 export interface AppTypeInitialState {
   isLoading: boolean
-  toasts: string[]
+  page: number
 }
 
 export interface PokemonInitialStateType {
@@ -21,34 +21,17 @@ export interface generatedPokemonType {
   types: string[]
 }
 
-export interface userPokemonsType extends generatedPokemonType {
-  firebaseId?: string
-}
-
 export interface currentPokemonType {
   id: number
   name: string
-  types: pokemonTypeInterface[]
+  types: string[]
   image: string
-  stats: pokemonStatsType[]
-  encounters: string[]
-  evolutionLevel: number
-  evolution: { level: number; pokemon: { name: string; url: string } }[]
-  pokemonAbilities: { abilities: string[]; moves: string[] }
+  moves: string[]
 }
 
 export interface pokemonStatsType {
   name: string
   value: string
-}
-
-export interface pokemonTypeInterface {
-  [key: string]: {
-    resistance: string[]
-    strength: string[]
-    weakness: string[]
-    vulnerable: string[]
-  }
 }
 
 export type pokemonStatType =

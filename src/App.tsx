@@ -1,24 +1,19 @@
-import { useAppDispatch, useAppSelector } from "./app/hooks"
-import { useEffect } from "react"
-import { getInitialPokemonData } from "./app/reducers/getInitialPokemonData"
-import { getPokemonData } from "./app/reducers/getPokemonData"
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom"
+import PokemonList from "./pages/PokemonList/PokemonList"
+import PokemonDetails from "./pages/PokemonDetails/PokemonDetails"
 
 const App = () => {
-  const dispatch = useAppDispatch()
-  const { allPokemon } = useAppSelector(state => state.pokemon)
-  useEffect(() => {
-    dispatch(getInitialPokemonData())
-  }, [dispatch])
-
-  useEffect(() => {
-    if (allPokemon) {
-      const clonedPokemon = [...allPokemon]
-      const pokemonList = clonedPokemon.slice(0, 20)
-      dispatch(getPokemonData(pokemonList))
-    }
-  }, [allPokemon, dispatch])
-
-  return <div>App</div>
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/pokemon" element={<Outlet />}>
+          <Route index element={<PokemonList />} />
+          <Route path="/pokemon/:id" element={<PokemonDetails />} />
+          <Route path="*" element={<></>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App

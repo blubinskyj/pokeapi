@@ -12,7 +12,11 @@ const initialState: PokemonInitialStateType = {
 export const PokemonSlice = createSlice({
   name: "pokemon",
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentPokemon: (state, action) => {
+      state.currentPokemon = action.payload
+    },
+  },
   extraReducers: builder => {
     builder.addCase(getInitialPokemonData.fulfilled, (state, action) => {
       state.allPokemon = action.payload
@@ -22,3 +26,5 @@ export const PokemonSlice = createSlice({
     })
   },
 })
+
+export const { setCurrentPokemon } = PokemonSlice.actions

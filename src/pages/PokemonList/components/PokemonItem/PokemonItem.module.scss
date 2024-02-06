@@ -1,0 +1,39 @@
+.pokemonCard {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 400px;
+  margin-top: 10px;
+}
+
+.pokemonCard h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.pokemonCard p {
+  margin: 8px 0;
+  color: #555;
+}
+
+.pokemonCard {
+  strong {
+    text-transform: capitalize;
+  }
+}
+
+.pokemonTypeContainer {
+  display: flex;
+  p {
+    margin-right: 5px;
+  }
+}
+
+.image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 96px;
+  height: 96px;
+}

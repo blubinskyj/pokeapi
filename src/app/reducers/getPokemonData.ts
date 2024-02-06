@@ -28,7 +28,6 @@ export const getPokemonData = createAsyncThunk(
           types,
         })
       }
-      console.log(pokemonsData, "pokemonsData")
       return pokemonsData
     } catch (err) {
       console.log(err)
