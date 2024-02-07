@@ -8,15 +8,17 @@ interface SearchProps {
 const Search: FC<SearchProps> = ({ getPokemon }) => {
   const [search, setSearch] = useState("")
   return (
-    <>
-      <input
-        type="text"
-        placeholder={"Search"}
-        onChange={e => setSearch(e.target.value)}
-        className={styles.input}
-      />
+    <div className={styles.searchContainer}>
+      <div>
+        <input
+          type="text"
+          placeholder={"Search"}
+          onChange={e => setSearch(e.target.value)}
+          className={styles.input}
+        />
+      </div>
       <button onClick={() => getPokemon(search)}>Search</button>
-    </>
+    </div>
   )
 }
 

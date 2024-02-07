@@ -1,14 +1,10 @@
-.input {
+.select {
+  margin: 10px 10px 0 0;
   font-size: 14px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   outline: none;
+  width: 100%;
   transition: border-color 0.3s ease-in-out;
-}
-
-.searchContainer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
 }

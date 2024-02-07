@@ -8,7 +8,6 @@ interface PokemonItemProps {
 }
 
 const PokemonItem: FC<PokemonItemProps> = ({ pokemon }) => {
-  // const location = useLocation()
   const navigate = useNavigate()
   return (
     <div

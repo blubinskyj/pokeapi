@@ -5,8 +5,10 @@ export interface AppTypeInitialState {
 
 export interface PokemonInitialStateType {
   allPokemon: undefined | genericPokemonType[]
+  allTypes: undefined | genericPokemonType[]
   pokemonList: generatedPokemonType[] | undefined
   currentPokemon: undefined | currentPokemonType
+  filter: string | undefined
 }
 
 export interface genericPokemonType {

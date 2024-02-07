@@ -1,18 +1,24 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import styles from "./PokemonDetails.module.scss"
 import { useCallback, useEffect, useState } from "react"
 import axios from "axios"
 import { pokemonRoute } from "../../utils/constants"
-import { setCurrentPokemon } from "../../app/slices/PokemonSlice"
+import { setCurrentPokemon, setFilter } from "../../app/slices/PokemonSlice"
 
 const PokemonDetails = () => {
   const params = useParams()
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [isDataLoading, setIsDataLoading] = useState(true)
   const currentPokemon = useAppSelector(
     ({ pokemon: { currentPokemon } }) => currentPokemon,
   )
+
+  const selectType = (type: string) => {
+    dispatch(setFilter(type))
+    navigate("/pokemon")
+  }
 
   const getPokemonInfo = useCallback(async () => {
     const { data } = await axios.get(`${pokemonRoute}/${params.id}`)
@@ -36,10 +42,17 @@ const PokemonDetails = () => {
     getPokemonInfo()
   }, [params.id, getPokemonInfo])
 
+  const goBack = () => {
+    navigate(-1)
+  }
+
   return (
     <>
       {!isDataLoading && currentPokemon ? (
         <div className={styles.itemContainer}>
+          <button className={styles.goBack} onClick={goBack}>
+            Go back
+          </button>
           <h1>{currentPokemon?.name}</h1>
           <img
             src={currentPokemon?.image}
@@ -51,7 +64,9 @@ const PokemonDetails = () => {
               <h2>Type:</h2>
               <ul>
                 {currentPokemon?.types.map((type, index) => (
-                  <li key={index}>{type}</li>
+                  <li key={index} onClick={() => selectType(type)}>
+                    {type}
+                  </li>
                 ))}
               </ul>
             </div>
